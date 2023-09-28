@@ -1,0 +1,45 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/wrr-bonsai-v2/communityjoineenotifications:${_VERSION}', '.']
+
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/wrr-bonsai-v2/communityjoineenotifications:${_VERSION}']
+
+# Deploy container image to Cloud Run
+- id: scheduled-run-jobs
+  name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: bash
+  env:
+  # - 'PROJECT_ID=$PROJECT_ID'
+  - '_JOB_ENV=${_JOB_ENV}'
+  - '_VERSION=${_VERSION}'
+  - '_RUN_OPERATION=${_RUN_OPERATION}'  
+  - '_TEST_EMAIL=${_TEST_EMAIL}'
+  args: 
+  - '-eEuo'
+  - 'pipefail'
+  - '-c'  
+  - |- 
+    set -o xtrace
+    if [[ "$_RUN_OPERATION" == "update" ]]
+    then
+      gcloud beta run jobs update communityjoineenotifications --image gcr.io/wrr-bonsai-v2/communityjoineenotifications:$_VERSION \
+      --region us-central1 --set-env-vars 'JOB_ENV=$_JOB_ENV,TEST_EMAIL=$_TEST_EMAIL'\
+      --service-account generic-wrr-cloudrun-jobs-sa@wrr-bonsai-v2.iam.gserviceaccount.com
+      
+    elif [[ "$_RUN_OPERATION" == "create" ]]
+    then
+      gcloud beta run jobs create communityjoineenotifications --image gcr.io/wrr-bonsai-v2/communityjoineenotifications:$_VERSION \
+      --region us-central1 --set-env-vars 'JOB_ENV=$_JOB_ENV,TEST_EMAIL=$_TEST_EMAIL' \
+      --service-account generic-wrr-cloudrun-jobs-sa@wrr-bonsai-v2.iam.gserviceaccount.com
+    fi;
+
+images:
+- gcr.io/wrr-bonsai-v2/communityjoineenotifications:${_VERSION}
+substitutions:
+  _VERSION: v1
+  _JOB_ENV: production # sandbox | production
+  _RUN_OPERATION: update # update | create
+  _TEST_EMAIL: 'harry.paul@wearerosie.com'

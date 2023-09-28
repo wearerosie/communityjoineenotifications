@@ -1,0 +1,19 @@
+{
+  "name": "community-joinee-notifications",
+  "version": "1.0.0",
+  "description": "Job for sending email on community joinee reports",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google-cloud/bigquery": "^6.0.3",
+    "@google-cloud/secret-manager": "^4.2.0",
+    "@mailchimp/mailchimp_transactional": "^1.0.50",
+    "axios": "^1.3.3",
+    "handlebars": "^4.7.7"
+  }
+}
