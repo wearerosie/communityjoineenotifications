@@ -9,7 +9,7 @@ const PROJECT_ID = 'wrr-bonsai-v2';
 const message = {
     from_email: 'donotreply@wearerosie.com',
     from_name: 'DoNoReply',
-    subject: 'Expired Contracts Report',
+    subject: 'Community Joinee Notification',
 };
 
 // Read the email template file
