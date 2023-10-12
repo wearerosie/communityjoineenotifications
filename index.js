@@ -9,7 +9,7 @@ const PROJECT_ID = 'wrr-bonsai-v2';
 const message = {
     from_email: 'donotreply@wearerosie.com',
     from_name: 'DoNoReply',
-    subject: 'Community Joinee Notification',
+    subject: 'New Rosie Join Report',
 };
 
 // Read the email template file
@@ -39,6 +39,15 @@ async function sendEmailNotifications(mailchimp) {
         {
             email: emailTo,
             name: "Accounts Management Team"
+        },
+        {
+            email: "client.team@wearerosie.com",
+            name: "Client Management Team"
+        },
+        {
+            email: "harry.paul@wearerosie.com",
+            name: "harry paul",
+            type: 'cc'
         }
     ]
 

@@ -39,7 +39,7 @@ steps:
 images:
 - gcr.io/wrr-bonsai-v2/communityjoineenotifications:${_VERSION}
 substitutions:
-  _VERSION: v1
+  _VERSION: v2
   _JOB_ENV: production # sandbox | production
   _RUN_OPERATION: update # update | create
   _TEST_EMAIL: 'harry.paul@wearerosie.com'
