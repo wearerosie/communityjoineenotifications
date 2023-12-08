@@ -45,6 +45,14 @@ async function sendEmailNotifications(mailchimp) {
             name: "Client Management Team"
         },
         {
+            email: "jeff.levick@wearerosie.com",
+            name: "Jeff Levick"
+        },
+        {
+            email: "kristina.willis@wearerosie.com",
+            name: "Kristina Willis"
+        },
+        {
             email: "harry.paul@wearerosie.com",
             name: "harry paul",
             type: 'cc'
